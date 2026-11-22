@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #060a14;
+  color: #e2e8f0;
+  /* Gradient biru halus di atas & bawah untuk kedalaman */
+  background-image:
+    radial-gradient(ellipse 90% 50% at 50% -10%, rgba(56, 189, 248, 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 100%, rgba(59, 130, 246, 0.10), transparent 60%);
+  background-attachment: fixed;
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Seleksi teks senada tema */
+::selection {
+  background-color: rgba(56, 189, 248, 0.3);
+  color: #fff;
+}
