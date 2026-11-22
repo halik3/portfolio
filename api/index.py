@@ -1,15 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from mangum import Mangum  # <-- Tambahan untuk Vercel
+from mangum import Mangum  
 from .routers import projects, contact
 
 app = FastAPI()
 
-# CORS: Izinkan localhost (untuk tes lokal) dan domain Vercel nanti
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Sementara izinkan semua, kita perketat nanti di Vercel
-    allow_credentials=False, # Harus False jika allow_origins=["*"]
+    allow_origins=["*"],  
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
