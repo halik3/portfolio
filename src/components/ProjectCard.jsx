@@ -1,45 +1,49 @@
 function ProjectCard({ project }) {
-  const href = project.demo_url || project.repo_url || "#";
+  // Jika demo_url ada, pakai itu. Jika kosong, pakai repo_url.
+  const linkTujuan = project.demo_url || project.repo_url || "#";
+  
+  // Cek apakah link-nya valid (bukan kosong)
+  const bisaDiklik = linkTujuan !== "#";
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="group block"
+    <a 
+      href={bisaDiklik ? linkTujuan : undefined}
+      target={bisaDiklik ? "_blank" : undefined}
+      rel={bisaDiklik ? "noreferrer" : undefined}
+      className={`group block ${bisaDiklik ? "cursor-pointer" : "cursor-default"}`}
     >
-      <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-5 border border-white/5 bg-gradient-to-br from-slate-800 to-slate-900">
+      {/* Gambar */}
+      <div className="aspect-[4/3] overflow-hidden mb-4 bg-sage/20 relative">
         {project.image_url ? (
-          <img
-            src={project.image_url}
-            alt={project.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+          <img 
+            src={project.image_url} 
+            alt={project.title} 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-sky-500/20 via-blue-500/10 to-transparent" />
+          <div className="w-full h-full flex items-center justify-center text-darkgreen/30 font-serif italic text-xl">
+            No Image
+          </div>
         )}
-
-        {project.featured && (
-          <span className="absolute top-4 left-4 text-[10px] font-medium tracking-[0.2em] uppercase text-sky-300 bg-[#060a14]/85 backdrop-blur px-3 py-1.5 rounded-full">
-            Featured
-          </span>
+        
+        {/* Overlay efek hover (opsional, biar makin keren) */}
+        {bisaDiklik && (
+          <div className="absolute inset-0 bg-darkgreen/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <span className="bg-cream text-darkgreen px-4 py-2 rounded-full font-medium text-sm shadow-lg">
+              Lihat Project ↗
+            </span>
+          </div>
         )}
       </div>
 
-      <div className="flex items-start justify-between gap-3 mb-2">
-        <h3 className="font-display text-xl text-white group-hover:text-sky-300 transition-colors duration-300">
-          {project.title}
-        </h3>
-        <span className="text-sky-400 text-lg leading-none group-hover:translate-x-1 transition-transform duration-300">
-          ↗
-        </span>
-      </div>
-
-      <p className="text-sm text-slate-400 mb-3 leading-relaxed line-clamp-2">
+      {/* Teks */}
+      <h3 className="font-serif text-2xl text-ink mb-2 group-hover:text-darkgreen transition-colors">
+        {project.title}
+      </h3>
+      <p className="text-sm text-ink/70 mb-3 line-clamp-2">
         {project.description}
       </p>
-
-      <p className="text-[11px] text-slate-500 tracking-wide uppercase">
+      <p className="text-xs font-semibold uppercase tracking-wider text-darkgreen">
         {project.tech_stack}
       </p>
     </a>

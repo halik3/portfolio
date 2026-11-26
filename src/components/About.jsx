@@ -1,33 +1,36 @@
 function About() {
   return (
-    <section id="about" className="max-w-6xl mx-auto px-6 lg:px-8 py-28">
-      <div className="grid grid-cols-1 md:grid-cols-[180px_1fr] gap-10 md:gap-20">
-        <div>
-          <p className="text-[11px] font-medium tracking-[0.35em] uppercase text-sky-400">
-            Tentang
-          </p>
-        </div>
-        <div className="space-y-6 text-slate-300 text-base md:text-lg font-light leading-relaxed max-w-2xl">
-          <p>
-            Halo! Saya <span className="font-display italic text-white">Muhammad Khalikil Rasak</span>, 
-            mahasiswa Program Studi Sistem Informasi di Universitas Islam Negeri Makassar (UINAM). 
-            Lahir di Makassar, 15 Desember 2004. Ketertarikan saya pada teknologi berawal dari 
-            rasa penasaran terhadap sistem operasi Linux, yang kemudian membawa saya mendalami 
-            pengembangan web fullstack.
-          </p>
-          <p>
-            Saat ini saya fokus mempelajari React, FastAPI, dan PostgreSQL. Bagi saya, 
-            menulis kode mirip seperti menulis prosa, keduanya membutuhkan struktur, alur, 
-            dan perhatian pada detail. Di luar aktivitas ngoding, saya mengisi waktu dengan 
-            membaca buku sastra dan mendengarkan musik.
-          </p>
-          <p>
-            Saya percaya bahwa pengalaman non-teknis sama pentingnya dengan kemampuan teknis. 
-            Melalui Praktik Kerja Lapangan (PKL) di PT Angkasa Pura dan pekerjaan paruh waktu 
-            di outlet roti bakar <span className="text-sky-300">Stalk</span>, saya belajar 
-            disiplin, manajemen waktu, dan komunikasi dengan berbagai kalangan.
-          </p>
-        </div>
+    <section id="about" className="grid grid-cols-1 md:grid-cols-2 bg-sage text-darkgreen">
+      {/* Kolom Gambar */}
+      <div className="h-64 md:h-auto min-h-[400px]">
+        {/* Ganti URL di bawah dengan foto kamu sendiri */}
+        <img 
+          src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop" 
+          alt="Khalikil" 
+          className="w-full h-full object-cover grayscale-[20%]"
+        />
+      </div>
+
+      {/* Kolom Teks */}
+      <div className="p-10 md:p-16 flex flex-col justify-center">
+        <h2 className="font-serif text-4xl md:text-5xl mb-8 leading-tight">
+          Rangkuman<br />Perjalanan
+        </h2>
+        
+        <ul className="space-y-4 text-sm md:text-base font-medium">
+          <li className="flex gap-3">
+            <span className="text-darkgreen">•</span> Mahasiswa Sistem Informasi di Universitas Islam Negeri Makassar.
+          </li>
+          <li className="flex gap-3">
+            <span className="text-darkgreen">•</span> Bereksperimen dengan Linux dan membangun aplikasi fullstack.
+          </li>
+          <li className="flex gap-3">
+            <span className="text-darkgreen">•</span> Berpengalaman PKL di PT Angkasa Pura dan part-time di Stalk Roti Bakar.
+          </li>
+          <li className="flex gap-3">
+            <span className="text-darkgreen">•</span> Menikmati prosa dan musik sebagai sumber inspirasi.
+          </li>
+        </ul>
       </div>
     </section>
   );
