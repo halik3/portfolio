@@ -16,7 +16,7 @@ class ProjectResponse(ProjectBase):
 
     class Config:
         from_attributes = True
-# --- Skema untuk Contact Form ---
+
 class MessageCreate(BaseModel):
     name: str
     email: str
@@ -25,6 +25,21 @@ class MessageCreate(BaseModel):
 class MessageResponse(MessageCreate):
     id: int
     created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+        # --- Skema untuk Autentikasi ---
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: str | None = None
+
+class UserResponse(BaseModel):
+    id: int
+    username: str
 
     class Config:
         from_attributes = True

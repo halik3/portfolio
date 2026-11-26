@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from mangum import Mangum
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
-from .routers import projects, contact
+from .routers import projects, contact, auth
 
 app = FastAPI()
 
@@ -29,6 +29,7 @@ app.add_middleware(
 # --- 3. ROUTERS ---
 app.include_router(projects.router)
 app.include_router(contact.router)
+app.include_router(auth.router)
 
 @app.get("/")
 def read_root():

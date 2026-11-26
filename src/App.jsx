@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -6,21 +7,37 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import ContactForm from "./components/ContactForm";
 import Footer from "./components/Footer";
+import Login from "./pages/Login";
+import Admin from "./pages/Admin";
 
-function App() {
+function Home() {
   return (
-    <div className="min-h-screen text-slate-200 overflow-x-hidden">
+    <>
       <Navbar />
       <main>
         <Hero />
         <About />
-        <Experience /> 
+        <Experience />
         <Skills />
         <Projects />
         <ContactForm />
       </main>
       <Footer />
-    </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen text-slate-200 overflow-x-hidden">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

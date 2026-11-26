@@ -23,3 +23,37 @@ export async function submitContactForm(data) {
   }
   return result;
 }
+// --- FUNGSI LOGIN ---
+export async function loginUser(username, password) {
+  // FastAPI OAuth2 mengharuskan format form-urlencoded, bukan JSON
+  const formData = new URLSearchParams();
+  formData.append("username", username);
+  formData.append("password", password);
+
+  const res = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: formData,
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.detail || "Login gagal");
+
+  return data; 
+}
+
+
+export async function createProject(projectData, token) {
+  const res = await fetch(`${API_URL}/projects`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`, // <-- Ini kunci JWT-nya
+    },
+    body: JSON.stringify(projectData),
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.detail || "Gagal menambah project");
+  return data;
+}
