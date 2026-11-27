@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { fetchProjects } from "../lib/api";
 import ProjectCard from "./ProjectCard";
+import ProjectSkeleton from "./ProjectSkeleton"; // <-- Import Skeleton
 import { Underline } from "./Doodle";
+import { FadeIn } from "./FadeIn";
+import { motion } from "framer-motion";
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -17,22 +20,35 @@ function Projects() {
 
   return (
     <section id="projects" className="py-24 px-6 max-w-6xl mx-auto">
-      <div className="text-center mb-16">
+      <FadeIn className="text-center mb-16">
         <h2 className="font-serif text-4xl md:text-5xl text-darkgreen relative inline-block">
           Contoh Karya Saya
           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-32">
             <Underline />
           </div>
         </h2>
-      </div>
+      </FadeIn>
 
-      {loading && <p className="text-center text-ink/50">Memuat projects…</p>}
       {error && <p className="text-center text-red-500">Error: {error}</p>}
 
-      {!loading && !error && (
+      {!error && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {projects.map((p) => (
-            <ProjectCard key={p.id} project={p} />
+          {/* Jika loading, tampilkan 3 skeleton */}
+          {loading &&
+            [1, 2, 3].map((n) => <ProjectSkeleton key={n} />)
+          }
+          
+          {/* Jika selesai loading, tampilkan data asli */}
+          {!loading && projects.map((p, i) => (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15, duration: 0.6 }}
+            >
+              <ProjectCard project={p} />
+            </motion.div>
           ))}
         </div>
       )}

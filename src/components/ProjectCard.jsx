@@ -1,19 +1,19 @@
+import { motion } from "framer-motion";
+
 function ProjectCard({ project }) {
-  // Jika demo_url ada, pakai itu. Jika kosong, pakai repo_url.
   const linkTujuan = project.demo_url || project.repo_url || "#";
-  
-  // Cek apakah link-nya valid (bukan kosong)
   const bisaDiklik = linkTujuan !== "#";
 
   return (
-    <a 
+    <motion.a 
       href={bisaDiklik ? linkTujuan : undefined}
       target={bisaDiklik ? "_blank" : undefined}
       rel={bisaDiklik ? "noreferrer" : undefined}
+      whileHover={{ y: -8 }}
+      transition={{ type: "spring", stiffness: 300 }}
       className={`group block ${bisaDiklik ? "cursor-pointer" : "cursor-default"}`}
     >
-      {/* Gambar */}
-      <div className="aspect-[4/3] overflow-hidden mb-4 bg-sage/20 relative">
+      <div className="aspect-[4/3] overflow-hidden mb-4 bg-sage/20 relative rounded-sm">
         {project.image_url ? (
           <img 
             src={project.image_url} 
@@ -26,7 +26,6 @@ function ProjectCard({ project }) {
           </div>
         )}
         
-        {/* Overlay efek hover (opsional, biar makin keren) */}
         {bisaDiklik && (
           <div className="absolute inset-0 bg-darkgreen/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <span className="bg-cream text-darkgreen px-4 py-2 rounded-full font-medium text-sm shadow-lg">
@@ -36,7 +35,6 @@ function ProjectCard({ project }) {
         )}
       </div>
 
-      {/* Teks */}
       <h3 className="font-serif text-2xl text-ink mb-2 group-hover:text-darkgreen transition-colors">
         {project.title}
       </h3>
@@ -46,7 +44,7 @@ function ProjectCard({ project }) {
       <p className="text-xs font-semibold uppercase tracking-wider text-darkgreen">
         {project.tech_stack}
       </p>
-    </a>
+    </motion.a>
   );
 }
 

@@ -21,6 +21,7 @@ class MessageCreate(BaseModel):
     name: str
     email: str
     message: str
+    website: str | None = None 
 
 class MessageResponse(MessageCreate):
     id: int
