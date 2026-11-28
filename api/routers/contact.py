@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
+from ..auth import get_current_user
 
 router = APIRouter()
 
@@ -29,3 +30,11 @@ def create_message(payload: schemas.MessageCreate, db: Session = Depends(get_db)
     db.refresh(new_message)
     
     return new_message
+
+@router.get("/messages", response_model=list[schemas.MessageResponse])
+def get_messages(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(get_current_user) # Hanya admin yang bisa lihat
+):
+    messages = db.query(models.Message).order_by(models.Message.created_at.desc()).all()
+    return messages

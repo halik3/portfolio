@@ -57,3 +57,26 @@ export async function createProject(projectData, token) {
   if (!res.ok) throw new Error(data.detail || "Gagal menambah project");
   return data;
 }
+
+// --- FUNGSI AMBIL SEMUA PESAN (BUTUH TOKEN) ---
+export async function fetchMessages(token) {
+  const res = await fetch(`${API_URL}/messages`, {
+    headers: { "Authorization": `Bearer ${token}` },
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.detail || "Gagal mengambil pesan");
+  return data;
+}
+
+// --- FUNGSI HAPUS PROJECT (BUTUH TOKEN) ---
+export async function deleteProject(id, token) {
+  const res = await fetch(`${API_URL}/projects/${id}`, {
+    method: "DELETE",
+    headers: { "Authorization": `Bearer ${token}` },
+  });
+  if (!res.ok) {
+    const data = await res.json();
+    throw new Error(data.detail || "Gagal menghapus project");
+  }
+  return true; // Sukses (204 No Content)
+}
